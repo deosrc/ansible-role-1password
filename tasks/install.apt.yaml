@@ -18,3 +18,4 @@
   become: true
   ansible.builtin.apt:
     name: 1password
+    state: "{{ onepassword_apps_apt_state }}"
