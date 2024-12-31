@@ -19,3 +19,10 @@
   ansible.builtin.apt:
     name: 1password
     state: "{{ onepassword_apps_apt_state }}"
+
+- name: Install 1password CLI
+  become: true
+  when: onepassword_include_cli
+  ansible.builtin.apt:
+    name: 1password-cli
+    state: "{{ onepassword_apps_apt_state }}"

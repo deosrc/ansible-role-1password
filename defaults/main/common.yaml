@@ -1,2 +1,4 @@
 ---
 onepassword_install_method: "apt"
+
+onepassword_include_cli: false
