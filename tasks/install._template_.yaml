@@ -1,0 +1,23 @@
+---
+# This is a template for adding new installation methods.
+# This file should be copied, and the various assert tasks replaced or removed as required.
+- name: Configure any package sources, or perform any dependency setup
+  ansible.builtin.assert:
+    that: true == false
+    fail_msg: Not yet implemented.
+
+- name: Install 1password desktop app
+  ansible.builtin.assert:
+    that: true == false
+    fail_msg: Not yet implemented.
+
+- name: Install 1password CLI
+  when: onepassword_include_cli # Ensure this line remains!
+  ansible.builtin.assert:
+    that: true == false
+    fail_msg: Not yet implemented.
+  # If 1password CLI is not supported via this install method, uncomment and use the assertion below instead.
+  # A requested install should fail with an error, rather than fail silently.
+  # ansible.builtin.assert:
+  #   that: true == false
+  #   fail_msg: 1Password CLI installation is not supported via {{ }} install.

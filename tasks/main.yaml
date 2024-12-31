@@ -1,0 +1,2 @@
+---
+- ansible.builtin.include_tasks: install.{{ onepassword_install_method }}.yaml

@@ -1,0 +1,6 @@
+---
+## Values in this file are only applicable to the "apt" install method.
+
+# Determines the value to use for the `state` property when installing apps.
+# See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#parameter-state
+onepassword_apps_apt_state: present
