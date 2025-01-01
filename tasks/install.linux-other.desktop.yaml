@@ -11,11 +11,11 @@
 
 - name: Download 1password desktop app
   become: true
-  # TODO: Add check for files with force update variable
   ansible.builtin.unarchive:
     src: https://downloads.1password.com/linux/tar/stable/{{ ansible_architecture }}/1password-latest.tar.gz
     dest: /opt/1Password
     remote_src: true
+    creates: "{% if not onepassword_desktop_force_update %}/opt/1Password/1password{% endif %}"
     extra_opts:
       - --strip=1 # Remove top level directory
 
