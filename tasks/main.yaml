@@ -6,6 +6,11 @@
       ansible.builtin.set_fact:
         onepassword_install_method: apt
 
+    - name: Set install method for other linux distributions or arm
+      when: onepassword_install_method == "" and ansible_architecture in ["x86_64", "aarch64"]
+      ansible.builtin.set_fact:
+        onepassword_install_method: linux-other
+
 - debug:
     var: onepassword_install_method
 
