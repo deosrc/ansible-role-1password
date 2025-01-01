@@ -1,0 +1,6 @@
+---
+## Values in this file are only applicable to the "linux-other" install method.
+
+# The URL to download the CLI from. Leave blank to automatically determine.
+# This will override the `onepassword_cli_version` variable
+onepassword_cli_download_url: ""

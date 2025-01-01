@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: install.linux-other.desktop.yaml
+
+- when: onepassword_include_cli # Ensure this line remains!
+  ansible.builtin.import_tasks: install.linux-other.cli.yaml

@@ -1,0 +1,26 @@
+---
+# https://support.1password.com/install-linux/#other-distributions-or-arm-targz
+- name: Create 1password directory
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /opt/1Password
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Download 1password desktop app
+  become: true
+  ansible.builtin.unarchive:
+    src: https://downloads.1password.com/linux/tar/stable/{{ ansible_architecture }}/1password-latest.tar.gz
+    dest: /opt/1Password
+    remote_src: true
+    creates: "{% if onepassword_desktop_version != 'latest' %}/opt/1Password/1password{% endif %}"
+    extra_opts:
+      - --strip=1 # Remove top level directory
+
+- name: Execute post-install script
+  become: true
+  ansible.builtin.shell:
+    chdir: /opt/1Password
+    cmd: ./after-install.sh
