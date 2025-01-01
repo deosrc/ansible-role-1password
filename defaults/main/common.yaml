@@ -1,7 +1,8 @@
 ---
 # Determines the install method to use.
 # This must match one of the install.<method>.yaml files within the tasks folder.
-onepassword_install_method: "apt"
+# If not specified, the install method will attempt to be automatically selected.
+onepassword_install_method: ""
 
 ## Apps
 # Installs the 1Password CLI

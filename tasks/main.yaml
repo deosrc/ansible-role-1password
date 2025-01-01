@@ -1,2 +1,12 @@
 ---
+- name: Determine install method
+  block:
+    - name: Set install method for amd64 architectures using apt
+      when: onepassword_install_method == "" and ansible_pkg_mgr == "apt" and ansible_architecture == "x86_64"
+      ansible.builtin.set_fact:
+        onepassword_install_method: apt
+
+- debug:
+    var: onepassword_install_method
+
 - ansible.builtin.include_tasks: install.{{ onepassword_install_method }}.yaml
