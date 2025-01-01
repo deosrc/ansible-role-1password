@@ -1,4 +1,5 @@
 ---
+# https://support.1password.com/install-linux/#other-distributions-or-arm-targz
 - name: Create 1password directory
   become: true
   ansible.builtin.file:

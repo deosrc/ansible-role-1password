@@ -1,0 +1,10 @@
+---
+## Values in this file are only applicable to the "linux-other" install method.
+
+# The 1password CLI version to install.
+# See https://app-updates.agilebits.com/product_history/CLI2
+onepassword_cli_version: v2.30.3
+
+# The URL to download the CLI from. Leave blank to automatically determine.
+# This will override the `onepassword_cli_version` variable
+onepassword_cli_download_url: ""

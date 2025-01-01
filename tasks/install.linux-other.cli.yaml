@@ -1,0 +1,28 @@
+---
+# https://developer.1password.com/docs/cli/get-started/
+- name: Determine CLI download URL
+  when: onepassword_cli_download_url == ""
+  ansible.builtin.set_fact:
+    onepassword_cli_download_url: https://cache.agilebits.com/dist/1P/op2/pkg/{{ onepassword_cli_version }}/op_linux_{{ onepassword_cli_architecture_id[ansible_architecture] | default(ansible_architecture) }}_{{ onepassword_cli_version }}.zip
+
+- name: Install 1password CLI
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ onepassword_cli_download_url }}"
+    dest: /usr/local/bin
+    remote_src: true
+    include: op
+
+- name: Create onepassword-cli group
+  become: true
+  ansible.builtin.group:
+    name: onepassword-cli
+
+- name: Set file permissions for 1password CLI
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/bin/op
+    state: file
+    owner: root
+    group: onepassword-cli
+    mode: u=rwx,g=rs,u=rx

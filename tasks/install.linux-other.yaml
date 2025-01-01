@@ -1,13 +1,5 @@
 ---
 - ansible.builtin.import_tasks: install.linux-other.desktop.yaml
 
-- name: Install 1password CLI
-  when: onepassword_include_cli # Ensure this line remains!
-  ansible.builtin.assert:
-    that: true == false
-    fail_msg: Not yet implemented.
-  # If 1password CLI is not supported via this install method, uncomment and use the assertion below instead.
-  # A requested install should fail with an error, rather than fail silently.
-  # ansible.builtin.assert:
-  #   that: true == false
-  #   fail_msg: 1Password CLI installation is not supported via {{ }} install.
+- when: onepassword_include_cli # Ensure this line remains!
+  ansible.builtin.import_tasks: install.linux-other.cli.yaml
