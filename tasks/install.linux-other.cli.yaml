@@ -2,7 +2,7 @@
 # https://developer.1password.com/docs/cli/get-started/
 - when: onepassword_cli_download_url == ""
   block:
-    - when: onepassword_cli_version == ""
+    - when: onepassword_cli_version in ["", "latest"]
       block:
         - name: Get latest CLI version information
           check_mode: false
@@ -27,7 +27,7 @@
   ansible.builtin.unarchive:
     src: "{{ onepassword_cli_download_url }}"
     dest: /usr/local/bin
-    creates: "{% if not onepassword_cli_force_update %}/usr/local/bin/op{% endif %}"
+    creates: "{% if onepassword_cli_version != 'latest' %}/usr/local/bin/op{% endif %}"
     remote_src: true
     include: op
 

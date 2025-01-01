@@ -17,12 +17,12 @@
 - name: Install 1password desktop app
   become: true
   ansible.builtin.apt:
-    name: 1password
-    state: "{{ onepassword_apps_apt_state }}"
+    name: "1password{% if onepassword_desktop_version not in ['', 'latest'] %}={{ onepassword_desktop_version }}{% endif %}"
+    state: "{% if onepassword_desktop_version == 'latest' %}latest{% else %}present{% endif %}"
 
 - name: Install 1password CLI
   become: true
   when: onepassword_include_cli
   ansible.builtin.apt:
-    name: 1password-cli
-    state: "{{ onepassword_apps_apt_state }}"
+    name: "1password-cli{% if onepassword_cli_version not in ['', 'latest'] %}={{ onepassword_cli_version }}{% endif %}"
+    state: "{% if onepassword_cli_version == 'latest' %}latest{% else %}present{% endif %}"
