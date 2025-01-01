@@ -1,9 +1,26 @@
 ---
 # https://developer.1password.com/docs/cli/get-started/
-- name: Determine CLI download URL
-  when: onepassword_cli_download_url == ""
-  ansible.builtin.set_fact:
-    onepassword_cli_download_url: https://cache.agilebits.com/dist/1P/op2/pkg/{{ onepassword_cli_version }}/op_linux_{{ onepassword_cli_architecture_id[ansible_architecture] | default(ansible_architecture) }}_{{ onepassword_cli_version }}.zip
+- when: onepassword_cli_download_url == ""
+  block:
+    - when: onepassword_cli_version == ""
+      block:
+        - name: Get latest CLI version information
+          check_mode: false
+          ansible.builtin.uri:
+            url: https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0/N
+            return_content: true
+          register: onepassword_cli_latest_version
+
+        - name: Determine CLI version
+          ansible.builtin.set_fact:
+            onepassword_cli_version: "{{ onepassword_cli_latest_version.json.version }}"
+
+    - name: Determine CLI download URL
+      ansible.builtin.set_fact:
+        onepassword_cli_download_url: https://cache.agilebits.com/dist/1P/op2/pkg/v{{ onepassword_cli_version }}/op_linux_{{ onepassword_cli_architecture_id[ansible_architecture] | default(ansible_architecture) }}_v{{ onepassword_cli_version }}.zip
+
+- debug:
+    var: onepassword_cli_download_url
 
 - name: Install 1password CLI
   become: true
