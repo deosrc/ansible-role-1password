@@ -1,3 +1,5 @@
 ---
 onepassword_cli_architecture_id:
+  # Only required if architecture in download URL is different from ansible_architecture
+  # Will use ansible_architecture if not provided
   aarch64: arm64
