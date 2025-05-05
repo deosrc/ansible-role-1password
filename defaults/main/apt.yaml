@@ -1,2 +1,6 @@
 ---
 ## Values in this file are only applicable to the "apt" install method.
+
+# The 1password installer will add an apt source in the legacy format.
+# This will remove it to avoid it conflicting with the newer deb822 format.
+onepassword_apt_remove_legacy_source: true

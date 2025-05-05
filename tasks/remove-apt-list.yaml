@@ -1,0 +1,11 @@
+---
+- name: Remove the legacy format apt source
+  become: true
+  when: onepassword_apt_remove_legacy_source
+  ansible.builtin.file:
+    state: absent
+    path: /etc/apt/sources.list.d/1password.list
+  notify:
+    - Update apt cache
+
+- ansible.builtin.meta: flush_handlers
