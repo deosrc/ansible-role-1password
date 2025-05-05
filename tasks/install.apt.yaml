@@ -12,6 +12,9 @@
   notify:
     - Update apt cache
 
+# Ensure apt sources are clean before updating cache
+- import_tasks: remove-apt-list.yaml
+
 - ansible.builtin.meta: flush_handlers
 
 - name: Install 1password desktop app
@@ -20,9 +23,15 @@
     name: "1password{% if onepassword_desktop_version not in ['', 'latest'] %}={{ onepassword_desktop_version }}{% endif %}"
     state: "{% if onepassword_desktop_version == 'latest' %}latest{% else %}present{% endif %}"
 
+# Ensure apt sources are clean before attempting install
+- import_tasks: remove-apt-list.yaml
+
 - name: Install 1password CLI
   become: true
   when: onepassword_include_cli
   ansible.builtin.apt:
     name: "1password-cli{% if onepassword_cli_version not in ['', 'latest'] %}={{ onepassword_cli_version }}{% endif %}"
     state: "{% if onepassword_cli_version == 'latest' %}latest{% else %}present{% endif %}"
+
+# Ensure apt sources are left clean
+- import_tasks: remove-apt-list.yaml
